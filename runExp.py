@@ -2,8 +2,9 @@ from Logger import PCLogger
 from ExpControl import ExpControl
 import time as systime
 
-logger = PCLogger()                                                     # setup logger & timer
-logger.log_setup()                                                    # publish IP and make setup available
+logger = PCLogger()
+# setup logger & timer
+logger.log_setup() # publish IP and make setup available
 ec = ExpControl(logger)
 
 # # # # Waiting for instructions loop # # # # #
