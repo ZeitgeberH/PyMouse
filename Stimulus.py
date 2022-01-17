@@ -3,6 +3,7 @@ from pygame.locals import *
 from Database import *
 import numpy as np
 from Timer import *
+import time
 
 class Stimulus:
     """ This class handles the stimulus presentation
@@ -253,7 +254,12 @@ class Psychtoolbox(Stimulus):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
         self.mat.run('/home/atlab/pipeline/setPath.m', nargout=0)
-        self.mat.run('/home/atlab/pipeline/setDJ.m', nargout=0)
+
+        # get datajoint info from environment variables set in startup script
+        self.mat.setenv('DJ_HOST',os.getenv('DJ_HOST'),nargout=0)
+        self.mat.setenv('DJ_USER',os.getenv('DJ_USER'),nargout=0)
+        self.mat.setenv('DJ_PASS',os.getenv('DJ_PASS'),nargout=0)
+       
         self.trial = []
         super(Psychtoolbox, self).__init__(logger, beh)
 
@@ -302,7 +308,12 @@ class DaqStim(Stimulus):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
         self.mat.run('c:/pipeline/pipeline/setPath.m', nargout=0)
-        self.mat.run('c:/pipeline/pipeline/setDJ.m', nargout=0)
+
+        # get datajoint info from environment variables set in startup script
+        self.mat.setenv('DJ_HOST',os.getenv('DJ_HOST'),nargout=0)
+        self.mat.setenv('DJ_USER',os.getenv('DJ_USER'),nargout=0)
+        self.mat.setenv('DJ_PASS',os.getenv('DJ_PASS'),nargout=0)
+
         self.trial = []
         super(DaqStim, self).__init__(logger, beh)
 
@@ -431,7 +442,13 @@ class PTOlf(Stimulus):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
         self.mat.run('/home/atlab/pipeline/setPath.m', nargout=0)
-        self.mat.run('/home/atlab/pipeline/setDJ.m', nargout=0)
+        # self.mat.run('/home/atlab/pipeline/setDJ.m', nargout=0)
+
+        # get datajoint info from environment variables set in startup script
+        self.mat.setenv('DJ_HOST',os.getenv('DJ_HOST'),nargout=0)
+        self.mat.setenv('DJ_USER',os.getenv('DJ_USER'),nargout=0)
+        self.mat.setenv('DJ_PASS',os.getenv('DJ_PASS'),nargout=0)
+
         self.trial = []
         super(Psychtoolbox, self).__init__(logger, beh)
 
