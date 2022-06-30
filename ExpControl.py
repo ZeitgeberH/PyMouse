@@ -66,6 +66,7 @@ class ExpControl:
         if not self.logger.get_setup_state() == 'stimRunning':
             self.exprmt.prepare()  # open stimulus window and prepare the protocol
             self.logger.update_setup_state('stimRunning')
+            systime.sleep(1)
             while self.logger.get_setup_state_control() == 'startStim' and self.exprmt.run():
                 self.logger.ping()
                 self.do_run_trial()
