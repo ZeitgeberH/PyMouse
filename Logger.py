@@ -14,9 +14,10 @@ class Logger:
     def __init__(self):
         self.session_key = dict()
         self.setup = socket.gethostname()
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        self.ip = s.getsockname()[0]
+#        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#        s.connect(("8.8.8.8", 80))
+#        self.ip = s.getsockname()[0]
+        self.ip = socket.gethostbyname(self.setup)
         print(self.ip)
         self.init_params()
         #self.thread = Thread(target=self.inserter)

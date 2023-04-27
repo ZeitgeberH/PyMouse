@@ -182,8 +182,11 @@ class PassiveMatlab(Experiment):
         super(PassiveMatlab, self).__init__(logger, timer, params)
 
     def prepare(self):
+        print('before stim setup')
         self.stim.setup()
+        print('before stim prepare')
         self.stim.prepare()  # prepare stimulus
+        print('after stim prepare')
 
     def pre_trial(self):
         self.stim.init_trial()  # initialize stimulus

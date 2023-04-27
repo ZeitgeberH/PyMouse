@@ -2,9 +2,12 @@ import datajoint as dj
 import socket
 
 # connect to local database server for communication wioth 2pmaster
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
-ip = s.getsockname()[0]
+#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#s.connect(("8.8.8.8", 80))
+#ip = s.getsockname()[0]
+hostname = socket.gethostname()
+ip = socket.gethostbyname(hostname) # make sure hostname in /etc/hosts file is set to actual address not 127.0.1.1
+
 conn2 = dj.Connection(ip, 'atlab', dj.config['database.password'])
 if conn2.is_connected:
     print('Connection to 2pMaster Made...')

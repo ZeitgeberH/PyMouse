@@ -64,8 +64,11 @@ class ExpControl:
     def do_start_stim(self):
         """start stimulation trials"""
         if not self.logger.get_setup_state() == 'stimRunning':
+            print('before prepare')
             self.exprmt.prepare()  # open stimulus window and prepare the protocol
+            print('after prepare')
             self.logger.update_setup_state('stimRunning')
+            print('after setting stim running')
             systime.sleep(1)
             while self.logger.get_setup_state_control() == 'startStim' and self.exprmt.run():
                 self.logger.ping()

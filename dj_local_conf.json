@@ -1,5 +1,5 @@
 {
-    "database.host": "at-database.ad.bcm.edu",
+    "database.host": "192.168.137.2",
     "display.show_tuple_count": true,
     "database.user": "atlab",
     "loglevel": "INFO",
