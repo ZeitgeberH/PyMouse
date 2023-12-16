@@ -1,4 +1,5 @@
 import datajoint as dj
+import os
 
 schema = dj.schema('pipeline_behavior')
 

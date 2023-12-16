@@ -1,14 +1,16 @@
 import datajoint as dj
 import socket
+import os
 
 # connect to local database server for communication wioth 2pmaster
 #s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #s.connect(("8.8.8.8", 80))
 #ip = s.getsockname()[0]
-hostname = socket.gethostname()
+hostname = os.getenv('DJ_STIMCONNECT_HOST')
 ip = socket.gethostbyname(hostname) # make sure hostname in /etc/hosts file is set to actual address not 127.0.1.1
-
-conn2 = dj.Connection(ip, 'atlab', dj.config['database.password'])
+print(hostname)
+print(ip)
+conn2 = dj.Connection(ip, os.getenv('DJ_STIMCONNECT_USER'), os.getenv('DJ_STIMCONNECT_PASS'))
 if conn2.is_connected:
     print('Connection to 2pMaster Made...')
 schema2 = dj.schema('pipeline_behavior', connection=conn2)
