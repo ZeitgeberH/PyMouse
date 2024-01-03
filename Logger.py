@@ -1,6 +1,6 @@
 import numpy, socket
 from Timer import *
-from Database import *
+from Database import * ## this connects to main database
 from itertools import product
 from queue import Queue
 import time as systime
@@ -18,7 +18,6 @@ class Logger:
 #        s.connect(("8.8.8.8", 80))
 #        self.ip = s.getsockname()[0]
         self.ip = socket.gethostbyname(self.setup)
-        print(self.ip)
         self.init_params()
         #self.thread = Thread(target=self.inserter)
         #self.thread.daemon = True

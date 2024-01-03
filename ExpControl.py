@@ -11,7 +11,7 @@ class ExpControl:
         self.params = None
         self.exprmt = None
         self.logger = logger
-        self.logger.setup_experiment_schema()
+        self.logger.setup_experiment_schema() # dj.create_virtual_module('experiment', 'pipeline_experiment')
         self.prev_command = None
         self.logger.update_setup_state('systemReady')
 
@@ -59,16 +59,13 @@ class ExpControl:
             self.logger.update_setup_state('sessionRunning')
             self.params = (Task() & dict(task_idx=self.logger.task_idx)).fetch1()  # get parameters
             self.timer = Timer()  # main timer for trials
-            self.exprmt = eval(self.params['exp_type'])(self.logger, self.timer, self.params)  # get experiment & init
+            self.exprmt = eval(self.params['exp_type'])(self.logger, self.timer, self.params)  # get PyMouse.experiment & init
 
     def do_start_stim(self):
         """start stimulation trials"""
         if not self.logger.get_setup_state() == 'stimRunning':
-            print('before prepare')
             self.exprmt.prepare()  # open stimulus window and prepare the protocol
-            print('after prepare')
             self.logger.update_setup_state('stimRunning')
-            print('after setting stim running')
             systime.sleep(1)
             while self.logger.get_setup_state_control() == 'startStim' and self.exprmt.run():
                 self.logger.ping()

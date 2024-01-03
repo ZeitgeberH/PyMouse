@@ -21,7 +21,7 @@ class Experiment:
         self.post_wait = 0
         self.indexes = []
         self.beh = self.get_behavior()(logger, params)
-        self.stim = eval(params['stim_type'])(logger, self.beh)
+        self.stim = eval(params['stim_type'])(logger, self.beh) # PyMouse stimulus class
         self.probe_bias = numpy.repeat(numpy.nan, 1)   # History term for bias calculation
 
     def prepare(self):
@@ -182,11 +182,8 @@ class PassiveMatlab(Experiment):
         super(PassiveMatlab, self).__init__(logger, timer, params)
 
     def prepare(self):
-        print('before stim setup')
         self.stim.setup()
-        print('before stim prepare')
         self.stim.prepare()  # prepare stimulus
-        print('after stim prepare')
 
     def pre_trial(self):
         self.stim.init_trial()  # initialize stimulus
@@ -202,7 +199,6 @@ class PassiveMatlab(Experiment):
         self.beh.cleanup()
         self.stim.cleanup()
         self.stim.close()
-
 
 class PassiveMatlabReward(PassiveMatlab):
     """ Passive Matlab with reward in between scans"""

@@ -6,13 +6,11 @@ import os
 #s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #s.connect(("8.8.8.8", 80))
 #ip = s.getsockname()[0]
-hostname = os.getenv('DJ_STIMCONNECT_HOST')
+hostname = socket.gethostname()
 ip = socket.gethostbyname(hostname) # make sure hostname in /etc/hosts file is set to actual address not 127.0.1.1
-print(hostname)
-print(ip)
 conn2 = dj.Connection(ip, os.getenv('DJ_STIMCONNECT_USER'), os.getenv('DJ_STIMCONNECT_PASS'))
 if conn2.is_connected:
-    print('Connection to 2pMaster Made...')
+    print('Pymouse connected to stimulus database...')
 schema2 = dj.schema('pipeline_behavior', connection=conn2)
 
 @schema2

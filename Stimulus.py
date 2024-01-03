@@ -253,26 +253,31 @@ class Psychtoolbox(Stimulus):
     def __init__(self, logger, beh):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
-        self.mat.run('/home/atlab/pipeline/setPath.m', nargout=0)
+        matlabPath=os.path.join('/home',os.getenv('LAB'),'pipeline/setPath.m')
+        self.mat.run(matlabPath, nargout=0)
 
-        # get datajoint info from environment variables set in startup script
+        # # get datajoint info from environment variables set in startup script
         self.mat.setenv('DJ_HOST',os.getenv('DJ_HOST'),nargout=0)
         self.mat.setenv('DJ_USER',os.getenv('DJ_USER'),nargout=0)
         self.mat.setenv('DJ_PASS',os.getenv('DJ_PASS'),nargout=0)
-       
+        self.mat.setenv('LAB',os.getenv('LAB'),nargout=0)
+        self.mat.setenv('DJ_STIMCONNECT_HOST',os.getenv('DJ_STIMCONNECT_HOST'),nargout=0)
+        self.mat.setenv('DJ_STIMCONNECT_USER',os.getenv('DJ_STIMCONNECT_USER'),nargout=0)
+        self.mat.setenv('DJ_STIMCONNECT_PASS',os.getenv('DJ_STIMCONNECT_PASS'),nargout=0)
+        
         self.trial = []
         super(Psychtoolbox, self).__init__(logger, beh)
 
     def setup(self):
         self.mat.stimulus.open(nargout=0)
-        print('display open')
+        print('Display opened!')
 
     def prepare(self):
         self.mat.stimulus.useLocalDBForControl(True, nargout=0)
         sync_levels = self.logger.get_sync_levels()
         self.mat.stimulus.set_sync_levels(sync_levels, nargout=0)
         protocol_file = self.logger.get_protocol_file()
-        print(protocol_file)
+        print('Current protocl ', protocol_file)
         self.mat.stimulus.prepare(self.logger.get_scan_key(), nargout=0)
         self.mat.stimulus.run_protocol(protocol_file, nargout=0)
         self.next_trial = self.mat.stimulus.get_next_trial()
