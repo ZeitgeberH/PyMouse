@@ -253,7 +253,7 @@ class Psychtoolbox(Stimulus):
     def __init__(self, logger, beh):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
-        if os.getenv('LAB')='atlab':
+        if os.getenv('LAB')=='atlab':
             matlabPath=os.path.join('/home',os.getenv('LAB'),'pipeline/setPath.m')
             print('pymouse is using atlab path for PTB')
         else:
