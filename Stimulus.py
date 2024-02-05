@@ -253,7 +253,12 @@ class Psychtoolbox(Stimulus):
     def __init__(self, logger, beh):
         import matlab.engine as eng
         self.mat = eng.start_matlab()
-        matlabPath=os.path.join('/home',os.getenv('LAB'),'pipeline/setPath.m')
+        if os.getenv('LAB')='atlab':
+            matlabPath=os.path.join('/home',os.getenv('LAB'),'pipeline/setPath.m')
+            print('pymouse is using atlab path for PTB')
+        else:
+            matlabPath=os.path.join('/home',os.getenv('LAB'),'pipeline/setPath_jrlab.m')
+            print('pymouse is using jrlab path for PTB')
         self.mat.run(matlabPath, nargout=0)
 
         # # get datajoint info from environment variables set in startup script
